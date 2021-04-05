@@ -3,32 +3,24 @@ class Form extends Component{
 
     constructor(props){
         super(props);
-        this.state={
-            task:'',
-            date:'',
-            time:''
-        }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
 
+  
+
     handleChange(event){
-        const {name,value} =event.target;
-        this.setState({[name]:value})
+        const {name,value} = event.target;
+        this.props.handleTaskChange(name,value);
     }
     
     handleSubmit(event){
         event.preventDefault();
-        this.props.addTask(this.state);
-        this.setState({
-            task:'',
-            date:'',
-            time:''
-        });
+        this.props.addTask();
     }
 
     render(){
-        const {task,date,time} = this.state;
+        const {task,date,time} = this.props.newTask;
         return (
             <form className='w-full px-8 py-2'  onSubmit={this.handleSubmit}>
                 <h1 className='text-yellow-300 text-5xl text-center py-2 mb-12 font-new-task '>Create New Task</h1>

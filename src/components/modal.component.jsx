@@ -4,7 +4,7 @@ function Modal ({task,modalIsOpen,toggle}){
 
     return (
         <div className={`absolute top-0 left-0 w-full h-full flex justify-center items-center ${modalIsOpen ? 'block':'hidden'} `} onClick={()=>toggle()}>
-            <div className='w-4/6 sm:w-2/5 bg-white bg-opacity-80 shadow-md border border-gray-100 rounded-md  animate-modal'>
+            <div className='w-4/6 sm:w-2/5 bg-white bg-opacity-90 shadow-md border border-gray-100 rounded-md  animate-modal'>
                 <p className='h-56 p-4 overflow-y-scroll whitespace-pre-line'>
                     {task.task}
                 </p>

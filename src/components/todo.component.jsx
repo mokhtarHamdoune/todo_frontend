@@ -7,22 +7,40 @@ class Todo  extends React.Component{
         super(props);
         this.state={
             tasks:[],
-            changedTask:{
+            newTask:{
                 task:'',
                 date:'',
                 time:''
             },
             modalIsOpen:false
         }
+        this.extededTask={
+            task:'',
+            date:'',
+            time:''
+        };
+        this.handleTaskChange = this.handleTaskChange.bind(this);
         this.addTask =  this.addTask.bind(this);
         this.removeTask = this.removeTask.bind(this);
         this.extendTask = this.extendTask.bind(this);
         this.toggleModal = this.toggleModal.bind(this);
         this.editeTask =  this.editeTask.bind(this);
     }
-    addTask(task){
-        task.id=this.state.tasks.length
-        this.setState({tasks:[task,...this.state.tasks]})
+
+    handleTaskChange(name,value){
+        this.setState({newTask:{...this.state.newTask,[name]:value}});
+    }
+
+    addTask(){
+        const newTask = {...this.state.newTask};
+        newTask.id=this.state.tasks.length
+        this.setState({
+        tasks:[newTask,...this.state.tasks],
+        newTask:{task:'',
+            date:'',
+            time:''
+        }
+    })
     }
 
     removeTask(id){
@@ -30,13 +48,12 @@ class Todo  extends React.Component{
     }
 
     editeTask(id){
-        console.log(id)
-        this.setState({changedTask:this.state.tasks.find((task)=>task.id===id)});
+        this.setState({newTask:this.state.tasks.find(task=>task.id === id)});
+        this.removeTask(id);
     }
 
     extendTask(id){
-        console.log(id)
-        this.setState({changedTask:this.state.tasks.find((task)=>task.id===id)});
+        this.extededTask={...this.state.tasks.find((task)=>task.id===id)}
         this.toggleModal()
     }
 
@@ -46,17 +63,18 @@ class Todo  extends React.Component{
 
 
     render(){
-        const {tasks,changedTask,modalIsOpen} = this.state;
+        const {tasks,modalIsOpen,newTask} = this.state;
         return (
             <div className='w-full'>
-                <Modal task={changedTask} modalIsOpen={modalIsOpen} toggle={this.toggleModal} />
+                <Modal task={this.extededTask} modalIsOpen={modalIsOpen} toggle={this.toggleModal} />
                 <Header />
                 <Body tasks={tasks}
                  addTask={this.addTask} 
                  removeTask={this.removeTask}
                  extendTask={this.extendTask}
                  editeTask={this.editeTask}
-                 changedTask={changedTask}
+                 newTask={newTask}
+                 handleTaskChange={this.handleTaskChange}
                  />
             </div>
         )
