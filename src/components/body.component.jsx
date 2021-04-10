@@ -1,7 +1,7 @@
 import React from 'react';
 import Item from './item.component';
 import Form from './form.component';
-const Body = ({tasks,addTask,removeTask,extendTask,editeTask,newTask,handleTaskChange})=>{
+const Body = ({tasks,addTask,removeTask,extendTask,editeTask,newTask,errors,isvalide,handleTaskChange,handleBlure,handleSubmit})=>{
 
 
     return (
@@ -15,7 +15,7 @@ const Body = ({tasks,addTask,removeTask,extendTask,editeTask,newTask,handleTaskC
                 </div>
             </div>
             <div className='w-full md:w-3/5 bg-gray-500 bg-form-bg'>
-                <Form newTask={newTask}  addTask={addTask}  handleTaskChange={handleTaskChange} />
+                <Form newTask={newTask} errors={errors} isvalide={isvalide}  addTask={addTask}  handleTaskChange={handleTaskChange} handleSubmit={handleSubmit} handleBlure={handleBlure} />
             </div>
         </div>
     )
